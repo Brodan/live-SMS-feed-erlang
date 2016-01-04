@@ -1,0 +1,9 @@
+{% extends "livefeed/list.html" %}
+{% block title %}Create Outgoing SMS{% endblock %}
+{% block body %}
+	<form method="post">
+		Enter a new message:
+		<textarea name="message_text"></textarea>
+		<input type="submit">
+	</form>
+{% endblock %}

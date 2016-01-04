@@ -1,0 +1,2 @@
+-module(text_message, [Id, MessageBody, FromNumber]).
+-compile(export_all).

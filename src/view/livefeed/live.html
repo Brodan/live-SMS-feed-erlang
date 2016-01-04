@@ -1,0 +1,32 @@
+<html><head>
+<title>New Messages!</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script>
+	function listen_for_events(timestamp) {
+	    $.ajax("/livefeed/pull/"+timestamp, { success:
+	        function(data, code, xhr) {
+	            for (var i=0; i<data.messages.length; i++) {
+	                var msg = data.messages[i].message_body;
+	                var num = data.messages[i].from_number;
+	                $("#message_list").append("<li>"+ num + ": " + msg);
+	                $("#empty_message").hide();
+	            }
+	            listen_for_events(data.timestamp);
+	        }
+	    });
+	}
+	$(document).ready(function() {
+	    listen_for_events({{ timestamp }});
+	});
+</script>
+</head>
+<body>
+	<ul id="message_list">
+		{% for message in messages %}
+			<li>{{ message.message_body }}
+			{% empty %}
+				<li id="empty_message">No messages!
+		{% endfor %}
+	</ul>
+</body>
+</html>
