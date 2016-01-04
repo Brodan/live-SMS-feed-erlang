@@ -9,8 +9,7 @@
                 {% for message in messages %}
                     <li>
                         <a href="{% url action="send_sms" num=message.from_number %}">
-                            {{ message.from_number }}: 
-                        </a>
+                            {{ message.from_number }}:</a>
                         {{ message.message_body }}
                 {% endfor %}
             {% else %}

@@ -6,10 +6,11 @@
 	    $.ajax("/livefeed/pull/"+timestamp, { success:
 	        function(data, code, xhr) {
 	            for (var i=0; i<data.messages.length; i++) {
+	            	if($("#empty_message").is(":visible"))
+						$("#empty_message").hide();
 	                var msg = data.messages[i].message_body;
 	                var num = data.messages[i].from_number;
-	                $("#message_list").append("<li>"+ num + ": " + msg);
-	                $("#empty_message").hide();
+	                $("#message_list").append('<li>' + num + ': ' + msg);
 	            }
 	            listen_for_events(data.timestamp);
 	        }
@@ -23,7 +24,8 @@
 <body>
 	<ul id="message_list">
 		{% for message in messages %}
-			<li>{{ message.message_body }}
+			<li>
+			    {{message.from_number}}: {{ message.message_body }}
 			{% empty %}
 				<li id="empty_message">No messages!
 		{% endfor %}
